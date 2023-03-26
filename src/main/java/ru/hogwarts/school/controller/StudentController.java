@@ -41,15 +41,25 @@ public class StudentController {
         Student value = service.change(student);
         return ResponseEntity.ok(value);
     }
+
     @DeleteMapping("{studentId}")
-    public ResponseEntity deleteStudent( @PathVariable Long studentId)
-    {
-        return ResponseEntity.ok(service.remove(studentId));
+    public ResponseEntity deleteStudent(@PathVariable Long studentId) {
+        service.remove(studentId);
+        return ResponseEntity.ok("Ученик удален");
     }
+    @DeleteMapping("/removeAll")
+    public ResponseEntity removeAll() {
+        service.removeAll();
+        return ResponseEntity.ok("Ученики удалены");
+    }
+
     @GetMapping("/sortByAge/{age}")
-    public ResponseEntity getByColor(@PathVariable int age)
-    {
+    public ResponseEntity getByAge(@PathVariable int age) {
         return ResponseEntity.ok(service.getByAge(age));
+    }
+    @GetMapping("/findByAgeBetween")
+    public ResponseEntity findByAgeBetween(@RequestParam int ageMin, @RequestParam int ageMax) {
+        return ResponseEntity.ok(service.findByAgeBetween(ageMin,ageMax));
     }
 
 }

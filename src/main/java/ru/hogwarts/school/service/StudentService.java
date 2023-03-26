@@ -1,48 +1,54 @@
 package ru.hogwarts.school.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class StudentService {
-    private Map<Long, Student> storage = new HashMap<>();
-    private int size;
+    private StudentRepository studentRepository;
+
     public Student add(Student value) {
-        storage.put(value.getId(), value);
-        size++;
-        return value;
+        return studentRepository.save(value);
     }
 
-    public Student remove(Long value) {
-        size--;
-        return storage.remove(value);
+    public void remove(Long value) {
+
+        studentRepository.deleteById(value);
     }
-    public Student change(Student value)
+    public void removeAll()
     {
-        storage.replace(value.getId(), value);
-        return value;
+        studentRepository.deleteAll();
+    }
+
+    public Student change(Student value) {
+
+        return studentRepository.save(value);
     }
 
     public Collection<Student> getAll() {
-        return storage.values();
+        return studentRepository.findAll();
     }
 
-    public Student getById(Long id)
-    {
-        return storage.get(id);
+    public Student getById(Long id) {
+        return studentRepository.findById(id).get();
     }
 
-    public Map<Long, Student> getByAge(int age)
-    {
-        return storage.entrySet().stream()
-                .filter(e -> e.getValue().getAge()== age)
-                .collect(Collectors.toMap(e->e.getKey(),e-> e.getValue()));
+    public List<Student> getByAge(int age) {
+        return studentRepository.findByAge(age);
 
+    }
+    public List<Student> findByAgeBetween(int ageMax, int ageMin)
+    {
+        return studentRepository.findByAgeBetween(ageMin,ageMax);
     }
 }

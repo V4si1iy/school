@@ -40,15 +40,26 @@ public class FacultyController {
         Faculty value = service.change(faculty);
         return ResponseEntity.ok(value);
     }
+
     @DeleteMapping("/{facultyId}")
-    public ResponseEntity deleteFaculty( @PathVariable Long facultyId)
-    {
-        return ResponseEntity.ok(service.remove(facultyId));
+    public ResponseEntity deleteFaculty(@PathVariable Long facultyId) {
+        service.remove(facultyId);
+        return ResponseEntity.ok("Факультет удален");
+    }
+    @DeleteMapping("/removeAll")
+    public ResponseEntity removeAll() {
+        service.removeAll();
+        return ResponseEntity.ok("Факультеты удалены");
     }
 
     @GetMapping("/sortByColor/{color}")
-    public ResponseEntity getByColor(@PathVariable String color)
-    {
+    public ResponseEntity getByColor(@PathVariable String color) {
         return ResponseEntity.ok(service.getByColor(color));
+    }
+    @GetMapping("/findByNameOrColor")
+    public ResponseEntity findByNameOrColor(String name, String color) {
+        if(name == null && color == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(service.findByNameOrColor(name,color));
     }
 }
