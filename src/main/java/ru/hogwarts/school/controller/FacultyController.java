@@ -62,4 +62,10 @@ public class FacultyController {
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(service.findByNameOrColor(name,color));
     }
+    @GetMapping("/getAllStudents/{facultyId}")
+    public ResponseEntity getAllStudentsByFaculty(@PathVariable Long facultyId)
+    {
+        return ResponseEntity.ok(service.getAllStudentsByFaculty(facultyId));
+    }
+
 }
