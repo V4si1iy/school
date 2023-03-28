@@ -15,10 +15,4 @@ public class Faculty {
     private String name;
     @OneToMany(mappedBy = "faculty")
     private Set<Student> students;
-
-
-    public Faculty() {
-    }
-
-
 }

@@ -8,14 +8,13 @@ import lombok.Data;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long Id;
     private String name;
     private int age;
     @ManyToOne
-    @JoinColumn(name = "faculty_id")
+    @JoinColumn(name= "faculty_id")
     private Faculty faculty;
+    @OneToOne(mappedBy = "student")
+    private Avatar avatar;
 
-
-    public Student() {
-    }
 }
