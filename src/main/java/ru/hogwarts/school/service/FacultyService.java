@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
+import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.*;
 
@@ -12,6 +13,7 @@ import java.util.*;
 @AllArgsConstructor
 public class FacultyService {
     private FacultyRepository facultyRepository;
+    private StudentRepository studentRepository;
 
     public Faculty add(Faculty value) {
         return facultyRepository.save(value);
@@ -45,9 +47,9 @@ public class FacultyService {
         return facultyRepository.findByNameOrColorIgnoreCase(name, color);
     }
 
-    public Set<Student> getAllStudentsByFaculty(Long id) {
-        Faculty value = getById(id);
-      return value.getStudents();
+    public List<Student> getAllStudentsByFaculty(Long id) {
+
+      return studentRepository.findByFaculty_Id(id);
     }
 
 }

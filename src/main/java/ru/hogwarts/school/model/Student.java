@@ -2,9 +2,11 @@ package ru.hogwarts.school.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
+@ToString(exclude = "avatar")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

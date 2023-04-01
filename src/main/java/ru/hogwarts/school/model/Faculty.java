@@ -2,11 +2,16 @@ package ru.hogwarts.school.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
 @Entity
+@ToString(exclude = "students")
 public class Faculty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,5 +19,5 @@ public class Faculty {
     private String color;
     private String name;
     @OneToMany(mappedBy = "faculty")
-    private Set<Student> students;
+    private List<Student> students;
 }
