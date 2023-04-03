@@ -19,7 +19,6 @@ public class StudentService {
 
     public Student add(Student value) {
         return studentRepository.save(value);
-
     }
 
     public void remove(Long value) {
