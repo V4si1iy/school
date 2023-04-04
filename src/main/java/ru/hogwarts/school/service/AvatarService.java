@@ -49,6 +49,8 @@ public class AvatarService {
         avatar.setFileSize(avatarFile.getSize());
         avatar.setData(avatarFile.getBytes());
         avatar.setMediaType(avatarFile.getContentType());
+        student.setAvatar(avatar);
+        studentRepository.save(student);
         avatarRepository.save(avatar);
     }
 

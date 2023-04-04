@@ -24,6 +24,7 @@ public class FacultyService {
     }
 
     public void removeAll() {
+        studentRepository.deleteAll();
         facultyRepository.deleteAll();
     }
 
@@ -49,7 +50,7 @@ public class FacultyService {
 
     public List<Student> getAllStudentsByFaculty(Long id) {
 
-      return studentRepository.findByFaculty_Id(id);
+      return facultyRepository.getById(id).getStudents();
     }
 
 }

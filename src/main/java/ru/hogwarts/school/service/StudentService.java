@@ -2,6 +2,7 @@ package ru.hogwarts.school.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.controller.FacultyController;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
@@ -16,13 +17,18 @@ import java.util.Set;
 public class StudentService {
     private StudentRepository studentRepository;
     FacultyService facultyService;
+    FacultyRepository facultyRepository;
 
     public Student add(Student value) {
+       Faculty faculty = facultyService.getById(value.getFaculty().getId());
+       faculty.addStudent(value);
+       facultyRepository.save(faculty);
         return studentRepository.save(value);
     }
 
     public void remove(Long value) {
-
+        Faculty faculty = facultyService.getById(value);
+        faculty.removeStudent(getById(value));
         studentRepository.deleteById(value);
     }
 

@@ -1,5 +1,6 @@
 package ru.hogwarts.school.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -18,6 +19,15 @@ public class Faculty {
     private Long id;
     private String color;
     private String name;
+    @JsonIgnore
     @OneToMany(mappedBy = "faculty")
     private List<Student> students;
+
+    public void addStudent(Student value) {
+       this.students.add(value);
+        value.setFaculty(this);
+    }
+    public void removeStudent(Student value) {
+        this.students.remove(value);
+    }
 }
