@@ -19,6 +19,7 @@ import java.nio.file.StandardOpenOption;
 
 
 @Service
+@RequiredArgsConstructor
 public class AvatarService {
     @Value("${path.to.avatars.folder}")
     private String avatarsDir;
@@ -26,10 +27,6 @@ public class AvatarService {
     AvatarRepository avatarRepository;
     StudentRepository studentRepository;
 
-    public AvatarService(AvatarRepository avatarRepository, StudentRepository studentRepository) {
-        this.avatarRepository = avatarRepository;
-        this.studentRepository = studentRepository;
-    }
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
         Student student = studentRepository.findById(studentId).get();
@@ -56,12 +53,16 @@ public class AvatarService {
 
     public byte[] getAvatarFromDB(Long id) {
 
-        Avatar avatar = avatarRepository.findById(id).get();
+        Avatar avatar = getAvatar(id);
         return avatar.getData();
     }
     public String  getMediaType(Long id)
     {
-        Avatar avatar = avatarRepository.findById(id).get();
+        Avatar avatar = getAvatar(id);
         return avatar.getMediaType();
+    }
+    public Avatar getAvatar(Long id)
+    {
+        return avatarRepository.getReferenceById(id);
     }
 }
