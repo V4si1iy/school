@@ -23,10 +23,19 @@ public class Faculty {
     @OneToMany(mappedBy = "faculty")
     private List<Student> students;
 
+    public Faculty() {
+    }
+
+    public Faculty(String color, String name) {
+        this.color = color;
+        this.name = name;
+    }
+
     public void addStudent(Student value) {
-       this.students.add(value);
+        this.students.add(value);
         value.setFaculty(this);
     }
+
     public void removeStudent(Student value) {
         this.students.remove(value);
     }

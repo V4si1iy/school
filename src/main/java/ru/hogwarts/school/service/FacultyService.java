@@ -33,19 +33,28 @@ public class FacultyService {
     }
 
     public Collection<Faculty> getAll() {
-        return facultyRepository.findAll();
+        List<Faculty> value = facultyRepository.findAll();
+        if(value.isEmpty())
+            return null;
+        else return value;
     }
 
     public Faculty getById(Long id) {
-        return facultyRepository.findById(id).get();
+        return facultyRepository.getById(id);
     }
 
     public List<Faculty> getByColor(String color) {
-        return facultyRepository.getByColor(color);
+        List<Faculty> value = facultyRepository.getByColor(color);
+        if(value.isEmpty())
+            return null;
+        else return value;
     }
 
     public List<Faculty> findByNameOrColor(String name, String color) {
-        return facultyRepository.findByNameOrColorIgnoreCase(name, color);
+        List<Faculty> value = facultyRepository.findByNameOrColorIgnoreCase(name, color);
+        if(value.isEmpty())
+            return null;
+        else return value;
     }
 
     public List<Student> getAllStudentsByFaculty(Long id) {

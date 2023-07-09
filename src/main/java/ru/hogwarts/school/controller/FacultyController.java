@@ -55,7 +55,7 @@ public class FacultyController {
         return ResponseEntity.ok("Факультеты удалены");
     }
 
-    @GetMapping("/sortByColor/{color}")
+    @GetMapping("/getByColor/{color}")
     public ResponseEntity getByColor(@PathVariable String color) {
         return ResponseEntity.ok(service.getByColor(color));
     }
