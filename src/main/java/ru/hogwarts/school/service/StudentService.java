@@ -60,8 +60,6 @@ public class StudentService {
 
     public Faculty getFacultyByIdStudent(Long id) {
         Student value = getById(id);
-        Long idFaculty = value.getFaculty().getId();
-        value.setFaculty(facultyService.getById(idFaculty));
         return value.getFaculty();
     }
 }
