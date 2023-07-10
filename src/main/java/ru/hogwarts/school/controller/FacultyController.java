@@ -1,5 +1,6 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/faculty")
 public class FacultyController {
+
     private final FacultyService service;
 
     public FacultyController(FacultyService service) {

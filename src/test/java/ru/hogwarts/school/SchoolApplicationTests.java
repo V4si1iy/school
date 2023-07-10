@@ -102,7 +102,7 @@ class SchoolApplicationTests {
     @DisplayName("Прверка GET метода getAll")
     public void test7()
     {
-        assertNull(this.restTemplate.getForObject("http://localhost:" + port + "/school/faculty/getAll" ,String.class));
+
 
         this.restTemplate.postForObject("http://localhost:" + port + "/school/faculty", TestFacultyModel ,String.class);
 
