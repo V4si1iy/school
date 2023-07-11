@@ -3,6 +3,7 @@ package ru.hogwarts.school.service;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +16,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-
+import java.util.List;
 
 
 @Service
@@ -64,5 +65,10 @@ public class AvatarService {
     public Avatar getAvatar(Long id)
     {
         return avatarRepository.getReferenceById(id);
+    }
+
+    public List<Avatar> getAll(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest= PageRequest.of(pageNumber,pageSize);
+        return avatarRepository.findAll(pageRequest).getContent();
     }
 }
