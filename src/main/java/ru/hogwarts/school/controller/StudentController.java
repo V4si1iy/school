@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("student")
@@ -64,6 +66,21 @@ public class StudentController {
     public ResponseEntity getFacultyByIdStudent(@PathVariable Long id)
     {
         return ResponseEntity.ok(service.getFacultyByIdStudent(id));
+    }
+    @GetMapping("/count")
+    public ResponseEntity<Long> getCountStudent()
+    {
+        return ResponseEntity.ok(service.getCountStudent());
+    }
+    @GetMapping("/AverageAge")
+    public ResponseEntity<Long> getAverageAge()
+    {
+        return ResponseEntity.ok(service.getAverageAge());
+    }
+    @GetMapping("/getLastFiveStudent")
+    public ResponseEntity<List<Student>> getLastFiveStudent()
+    {
+        return ResponseEntity.ok(service.getLastFiveStudent());
     }
 
 
