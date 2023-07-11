@@ -20,9 +20,11 @@ public class StudentService {
     FacultyRepository facultyRepository;
 
     public Student add(Student value) {
-       Faculty faculty = facultyService.getById(value.getFaculty().getId());
-       faculty.addStudent(value);
-       facultyRepository.save(faculty);
+        if(value.getFaculty() != null) {
+            Faculty faculty = facultyService.getById(value.getFaculty().getId());
+            faculty.addStudent(value);
+            facultyRepository.save(faculty);
+        }
         return studentRepository.save(value);
     }
 

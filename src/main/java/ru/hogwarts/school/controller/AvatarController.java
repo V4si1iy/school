@@ -24,12 +24,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/avatar")
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class AvatarController {
 
     private AvatarService service;
 
-    @GetMapping
+    @GetMapping("getAll")
     public ResponseEntity<List<Avatar>> getAll(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSize)
     {
         return ResponseEntity.ok(service.getAll(pageNumber,pageSize));

@@ -21,7 +21,6 @@ public class Student {
     @OneToOne(mappedBy = "student")
     private Avatar avatar;
 
-
     public void setAvatar(Avatar avatar) {
         avatar.setStudent(this);
         this.avatar = avatar;

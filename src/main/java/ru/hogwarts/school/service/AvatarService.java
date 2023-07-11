@@ -20,14 +20,18 @@ import java.util.List;
 
 
 @Service
-@RequiredArgsConstructor
 public class AvatarService {
     @Value("${path.to.avatars.folder}")
     private String avatarsDir;
 
+
     AvatarRepository avatarRepository;
     StudentRepository studentRepository;
 
+    public AvatarService(AvatarRepository avatarRepository, StudentRepository studentRepository) {
+        this.avatarRepository = avatarRepository;
+        this.studentRepository = studentRepository;
+    }
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
         Student student = studentRepository.findById(studentId).get();
@@ -42,14 +46,15 @@ public class AvatarService {
         ) {
             bis.transferTo(bos);
         }
-        Avatar avatar = avatarRepository.findByStudent(student);
+        Avatar avatar = new Avatar();
         avatar.setFilePath(filePath.toString());
         avatar.setFileSize(avatarFile.getSize());
         avatar.setData(avatarFile.getBytes());
         avatar.setMediaType(avatarFile.getContentType());
         student.setAvatar(avatar);
-        studentRepository.save(student);
         avatarRepository.save(avatar);
+        studentRepository.save(student);
+
     }
 
     public byte[] getAvatarFromDB(Long id) {
@@ -57,18 +62,18 @@ public class AvatarService {
         Avatar avatar = getAvatar(id);
         return avatar.getData();
     }
-    public String  getMediaType(Long id)
-    {
+
+    public String getMediaType(Long id) {
         Avatar avatar = getAvatar(id);
         return avatar.getMediaType();
     }
-    public Avatar getAvatar(Long id)
-    {
+
+    public Avatar getAvatar(Long id) {
         return avatarRepository.getReferenceById(id);
     }
 
     public List<Avatar> getAll(Integer pageNumber, Integer pageSize) {
-        PageRequest pageRequest= PageRequest.of(pageNumber,pageSize);
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return avatarRepository.findAll(pageRequest).getContent();
     }
 }
