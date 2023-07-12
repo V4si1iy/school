@@ -16,7 +16,7 @@ public class Student {
     private int age;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "faculty_id")
+    @JoinColumn(name = "faculty_id")
     private Faculty faculty;
     @OneToOne(mappedBy = "student")
     private Avatar avatar;

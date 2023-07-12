@@ -33,34 +33,33 @@ public class AvatarController {
     Mapper mapper;
 
     @GetMapping("getAll")
-    public ResponseEntity<List<AvatarDTO>> getAll(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSize)
-    {
-        return ResponseEntity.ok(service.getAll(pageNumber,pageSize)
+    public ResponseEntity<List<AvatarDTO>> getAll(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSize) {
+        return ResponseEntity.ok(service.getAll(pageNumber, pageSize)
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList()));
     }
 
     @PostMapping(value = "/{studentId}/uploadAvatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadAvatar(@PathVariable Long studentId, @RequestParam MultipartFile avatarFile) throws IOException
-    {
+    public ResponseEntity<String> uploadAvatar(@PathVariable Long studentId, @RequestParam MultipartFile avatarFile) throws IOException {
         service.uploadAvatar(studentId, avatarFile);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping("/{id}/getAvatarFromDB")
-    public ResponseEntity<byte[]> getAvatarFromDB(@PathVariable Long id)
-    {
+    public ResponseEntity<byte[]> getAvatarFromDB(@PathVariable Long id) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(service.getMediaType(id)));
         headers.setContentLength(service.getAvatarFromDB(id).length);
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(service.getAvatarFromDB(id));
     }
+
     @GetMapping(value = "/{id}/avatar-from-file")
-    public void downloadAvatar(@PathVariable Long id, HttpServletResponse response) throws IOException{
+    public void downloadAvatar(@PathVariable Long id, HttpServletResponse response) throws IOException {
         Avatar avatar = service.getAvatar(id);
         Path path = Path.of(avatar.getFilePath());
-        try(InputStream is = Files.newInputStream(path);
-            OutputStream os = response.getOutputStream();) {
+        try (InputStream is = Files.newInputStream(path);
+             OutputStream os = response.getOutputStream();) {
             response.setStatus(200);
             response.setContentType(avatar.getMediaType());
             response.setContentLength((int) avatar.getFileSize());

@@ -37,7 +37,7 @@ public class FacultyController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity get(@PathVariable Long id) {
-        FacultyDTO faculty =mapper.toDto(service.getById(id));
+        FacultyDTO faculty = mapper.toDto(service.getById(id));
         if (faculty == null) {
             return ResponseEntity.notFound().build();
         }
@@ -61,6 +61,7 @@ public class FacultyController {
         service.remove(facultyId);
         return ResponseEntity.ok("Факультет удален");
     }
+
     @DeleteMapping("/removeAll")
     public ResponseEntity removeAll() {
         service.removeAll();
@@ -75,19 +76,20 @@ public class FacultyController {
                         .map(mapper::toDto)
                         .collect(Collectors.toList()));
     }
+
     @GetMapping("/findByNameOrColor")
     public ResponseEntity findByNameOrColor(String name, String color) {
-        if(name == null && color == null)
+        if (name == null && color == null)
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(
-                service.findByNameOrColor(name,color)
-                .stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList()));
+                service.findByNameOrColor(name, color)
+                        .stream()
+                        .map(mapper::toDto)
+                        .collect(Collectors.toList()));
     }
+
     @GetMapping("/getAllStudents/{facultyId}")
-    public List<StudentDTO> getAllStudentsByFaculty(@PathVariable Long facultyId)
-    {
+    public List<StudentDTO> getAllStudentsByFaculty(@PathVariable Long facultyId) {
         return service.getAllStudentsByFaculty(facultyId)
                 .stream()
                 .map(mapper::toDto)

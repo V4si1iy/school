@@ -20,7 +20,7 @@ public class StudentService {
     FacultyRepository facultyRepository;
 
     public Student add(Student value) {
-        if(value.getFaculty() != null) {
+        if (value.getFaculty() != null) {
             Faculty faculty = facultyService.getById(value.getFaculty().getId());
             faculty.addStudent(value);
             facultyRepository.save(faculty);
@@ -68,6 +68,7 @@ public class StudentService {
     public Long getCountStudent() {
         return studentRepository.getCountStudent();
     }
+
     public Long getAverageAge() {
         return studentRepository.getAverageAge();
     }

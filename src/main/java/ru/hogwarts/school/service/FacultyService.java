@@ -34,7 +34,7 @@ public class FacultyService {
 
     public Collection<Faculty> getAll() {
         List<Faculty> value = facultyRepository.findAll();
-        if(value.isEmpty())
+        if (value.isEmpty())
             return null;
         else return value;
     }
@@ -45,21 +45,21 @@ public class FacultyService {
 
     public List<Faculty> getByColor(String color) {
         List<Faculty> value = facultyRepository.getByColor(color);
-        if(value.isEmpty())
+        if (value.isEmpty())
             return null;
         else return value;
     }
 
     public List<Faculty> findByNameOrColor(String name, String color) {
         List<Faculty> value = facultyRepository.findByNameOrColorIgnoreCase(name, color);
-        if(value.isEmpty())
+        if (value.isEmpty())
             return null;
         else return value;
     }
 
     public List<Student> getAllStudentsByFaculty(Long id) {
 
-      return facultyRepository.getById(id).getStudents();
+        return facultyRepository.getById(id).getStudents();
     }
 
 }

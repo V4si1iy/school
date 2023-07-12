@@ -34,7 +34,7 @@ public class StudentController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity get(@PathVariable Long id) {
-        StudentDTO student =mapper.toDto(service.getById(id));
+        StudentDTO student = mapper.toDto(service.getById(id));
         if (student == null) {
             return ResponseEntity.notFound().build();
         }
@@ -69,18 +69,18 @@ public class StudentController {
     public ResponseEntity getByAge(@PathVariable int age) {
         return ResponseEntity.ok(
                 service.getByAge(age)
-                .stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList()));
+                        .stream()
+                        .map(mapper::toDto)
+                        .collect(Collectors.toList()));
     }
 
     @GetMapping("/findByAgeBetween")
     public ResponseEntity findByAgeBetween(@RequestParam int ageMin, @RequestParam int ageMax) {
         return ResponseEntity.ok(
                 service.findByAgeBetween(ageMin, ageMax)
-                .stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList()));
+                        .stream()
+                        .map(mapper::toDto)
+                        .collect(Collectors.toList()));
     }
 
     @GetMapping("/getFacultyByIdStudent/{id}")
