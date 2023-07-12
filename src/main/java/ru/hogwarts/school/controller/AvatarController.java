@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
+import ru.hogwarts.school.model.AvatarDTO;
 import ru.hogwarts.school.service.AvatarService;
+import ru.hogwarts.school.service.Mapper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +21,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -27,11 +30,15 @@ import java.util.List;
 public class AvatarController {
 
     private AvatarService service;
+    Mapper mapper;
 
     @GetMapping("getAll")
-    public ResponseEntity<List<Avatar>> getAll(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSize)
+    public ResponseEntity<List<AvatarDTO>> getAll(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSize)
     {
-        return ResponseEntity.ok(service.getAll(pageNumber,pageSize));
+        return ResponseEntity.ok(service.getAll(pageNumber,pageSize)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList()));
     }
 
     @PostMapping(value = "/{studentId}/uploadAvatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

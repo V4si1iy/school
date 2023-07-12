@@ -8,15 +8,14 @@ import lombok.ToString;
 
 @Data
 @Entity
-
 public class Avatar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String filePath;
-    long fileSize;
-    String mediaType;
-    byte[] data;
+    private Long id;
+    private String filePath;
+    private long fileSize;
+    private String mediaType;
+    private byte[] data;
     @OneToOne()
-    Student student;
+    private Student student;
 }
