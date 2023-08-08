@@ -1,6 +1,7 @@
 package ru.hogwarts.school.service;
 
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,13 +12,14 @@ import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
 @Service
 @AllArgsConstructor
 public class StudentService {
-   private static Logger logger = LoggerFactory.getLogger(StudentService.class);
+    private static Logger logger = LoggerFactory.getLogger(StudentService.class);
     private StudentRepository studentRepository;
     FacultyService facultyService;
     FacultyRepository facultyRepository;
@@ -86,5 +88,21 @@ public class StudentService {
     public List<Student> getLastFiveStudent() {
         logger.info("Was invoked method ti get last five students");
         return studentRepository.getLastFiveStudent();
+    }
+
+    public List<String> getAllStudentByFirstLetter(String letter) {
+        return getAll().stream()
+                .sorted(Comparator.comparing(student -> student.getName()))
+                .filter(student -> student.getName().startsWith(letter))
+                .map(student -> StringUtils.capitalize(student.getName()))
+                .toList();
+    }
+
+    public Double getAverageAgeStream() {
+        return getAll().stream().parallel()
+                .map(student -> student.getAge())
+                .mapToInt(Integer::intValue)
+                .average()
+                .getAsDouble();
     }
 }

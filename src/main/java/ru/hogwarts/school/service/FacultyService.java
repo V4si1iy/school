@@ -1,6 +1,7 @@
 package ru.hogwarts.school.service;
 
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -64,13 +66,27 @@ public class FacultyService {
         if (value.isEmpty()) {
             logger.debug("return null - list of faculties is empty");
             return null;
-        }
-        else return value;
+        } else return value;
     }
 
     public List<Student> getAllStudentsByFaculty(Long id) {
         logger.info("Was invoked method to get all students by faculty");
         return facultyRepository.getById(id).getStudents();
     }
+
+    public String getLongestName() {
+        return getAll().stream().parallel()
+                .map(faculty -> faculty.getName())
+                .max(Comparator.comparingInt(String::length)).toString();
+    }
+
+    public Integer getLessTime() {
+
+        return Stream.iterate(1, a -> a + 1)
+                .limit(1_000_000).parallel()
+                .reduce(0, (a, b) -> a + b);
+
+    }
+
 
 }

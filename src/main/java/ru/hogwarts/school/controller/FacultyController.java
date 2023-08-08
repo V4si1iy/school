@@ -88,5 +88,10 @@ public class FacultyController {
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
+    @GetMapping("/getLess")
+    public ResponseEntity getLess()
+    {
+        return ResponseEntity.ok(service.getLessTime());
+    }
 
 }
