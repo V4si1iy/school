@@ -2,6 +2,8 @@ package ru.hogwarts.school.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,7 +28,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/avatar")
 @AllArgsConstructor
 public class AvatarController {
-
     private AvatarService service;
     Mapper mapper;
 

@@ -47,11 +47,6 @@ public class StudentController {
         return ResponseEntity.ok(value);
     }
 
-    @PutMapping()
-    public ResponseEntity updateStudent(@RequestBody Student student) {
-        Student value = service.change(student);
-        return ResponseEntity.ok(value);
-    }
 
     @DeleteMapping("{studentId}")
     public ResponseEntity deleteStudent(@PathVariable Long studentId) {

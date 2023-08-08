@@ -48,11 +48,6 @@ public class FacultyController {
         return ResponseEntity.ok(value);
     }
 
-    @PutMapping()
-    public ResponseEntity updateFaculty(@RequestBody Faculty faculty) {
-        Faculty value = service.change(faculty);
-        return ResponseEntity.ok(value);
-    }
 
     @DeleteMapping("/{facultyId}")
     public ResponseEntity deleteFaculty(@PathVariable Long facultyId) {
