@@ -105,4 +105,40 @@ public class StudentService {
                 .average()
                 .getAsDouble();
     }
+    public void getStudentStreams()
+    {
+       List<Student> students =(List<Student>)  getAll();
+        new Thread(() ->{
+              System.out.println(students.get(0));
+              System.out.println(students.get(1));
+        });
+        new Thread(() ->{
+            System.out.println(students.get(2));
+            System.out.println(students.get(3));
+        });
+        new Thread(() ->{
+            System.out.println(students.get(4));
+            System.out.println(students.get(5));
+        });
+    }
+
+    public void getStudentStreamsSynchronized()
+    {
+
+        List<Student> students =(List<Student>)  getAll();
+        synchronized(students) {
+            new Thread(() -> {
+                System.out.println(students.get(0));
+                System.out.println(students.get(1));
+            });
+            new Thread(() -> {
+                System.out.println(students.get(2));
+                System.out.println(students.get(3));
+            });
+            new Thread(() -> {
+                System.out.println(students.get(4));
+                System.out.println(students.get(5));
+            });
+        }
+    }
 }
