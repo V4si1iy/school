@@ -2,6 +2,9 @@ package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Component;
 import ru.hogwarts.school.model.*;
+import ru.hogwarts.school.model.DTO.AvatarDTO;
+import ru.hogwarts.school.model.DTO.FacultyDTO;
+import ru.hogwarts.school.model.DTO.StudentDTO;
 
 import java.util.ArrayList;
 import java.util.List;

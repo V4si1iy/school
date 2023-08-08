@@ -2,8 +2,6 @@ package ru.hogwarts.school.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Target;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
-import ru.hogwarts.school.model.AvatarDTO;
+import ru.hogwarts.school.model.DTO.AvatarDTO;
 import ru.hogwarts.school.service.AvatarService;
 import ru.hogwarts.school.service.Mapper;
 
