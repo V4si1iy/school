@@ -92,7 +92,7 @@ public class StudentService {
 
     public List<String> getAllStudentByFirstLetter(String letter) {
         return getAll().stream()
-                .sorted(Comparator.comparing(student -> student.getName()))
+                .sorted(Comparator.comparing(Student::getName))
                 .filter(student -> student.getName().startsWith(letter))
                 .map(student -> StringUtils.capitalize(student.getName()))
                 .toList();
@@ -100,45 +100,47 @@ public class StudentService {
 
     public Double getAverageAgeStream() {
         return getAll().stream().parallel()
-                .map(student -> student.getAge())
+                .map(Student::getAge)
                 .mapToInt(Integer::intValue)
                 .average()
                 .getAsDouble();
     }
-    public void getStudentStreams()
-    {
-       List<Student> students =(List<Student>)  getAll();
-        new Thread(() ->{
-              System.out.println(students.get(0));
-              System.out.println(students.get(1));
+
+    public void getStudentStreams() {
+        List<Student> students = (List<Student>) getAll();
+        new Thread(() -> {
+            System.out.println(students.get(0));
+            System.out.println(students.get(1));
         });
-        new Thread(() ->{
+        new Thread(() -> {
             System.out.println(students.get(2));
             System.out.println(students.get(3));
         });
-        new Thread(() ->{
+        new Thread(() -> {
             System.out.println(students.get(4));
             System.out.println(students.get(5));
         });
     }
 
-    public void getStudentStreamsSynchronized()
-    {
+    public void getStudentStreamsSynchronized() {
+            new Thread(() -> {
+                printStudent(0);
+                printStudent(1);
+            }).start();
+            new Thread(() -> {
+                printStudent(2);
+                printStudent(3);
 
-        List<Student> students =(List<Student>)  getAll();
-        synchronized(students) {
+            }).start();
             new Thread(() -> {
-                System.out.println(students.get(0));
-                System.out.println(students.get(1));
-            });
-            new Thread(() -> {
-                System.out.println(students.get(2));
-                System.out.println(students.get(3));
-            });
-            new Thread(() -> {
-                System.out.println(students.get(4));
-                System.out.println(students.get(5));
-            });
-        }
+                printStudent(4);
+                printStudent(5);
+            }).start();
+
+    }
+
+    public synchronized void printStudent(Integer id) {
+        List<Student> students = (List<Student>) getAll();
+        System.out.println(students.get(id));
     }
 }
